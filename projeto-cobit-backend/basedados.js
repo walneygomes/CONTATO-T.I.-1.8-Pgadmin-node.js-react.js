@@ -34,17 +34,26 @@ function queryDatabase() {
         .then(res => console.log( res.rows[0]))
        
 }
+server.post('/comentar', (req,res)=>{
+    res.send(req.body)
 
+    const sql = 'INSERT INTO comentarios(nome,productname) VALUES ($1,$2);';
+    const values = [req.body.nome, req.body.comentario];
+     client.query(sql, values);
+      
+    
+   
+
+
+})
 server.get('/comentarios', (req, res)=>{
     
         
     client.query('SELECT * FROM comentarios;')
         .then(res1 =>   res.send(res1.rows))
-        console.log("resposta")
+        console.log("resposta");
    
 
 })
 
-console.log("Base de dados ativa")
-
-server.listen(3100)
+server.listen(3100);
